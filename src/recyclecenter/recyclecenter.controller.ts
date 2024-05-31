@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request, UnauthorizedException } from '@nestjs/common';
 import { RecyclecenterService } from './recyclecenter.service';
 import { CreateRecyclecenterDto } from './dto/create-recyclecenter.dto';
 import { UpdateRecyclecenterDto } from './dto/update-recyclecenter.dto';
@@ -11,7 +11,13 @@ export class RecycleCenterController {
   @Post()
   @UseGuards(AuthGuard)
   create(@Body() createRecycleCenterDto: CreateRecyclecenterDto, @Request() req: PayloadRequest) {
-    return this.recycleCenterService.create(createRecycleCenterDto, req.user.id);
+    const cityId=req.user?.id;
+    const countryId=req.user?.id;
+
+    if (!cityId && !countryId) {
+      throw new UnauthorizedException('You must be logged in to create a center');
+    }
+    return this.recycleCenterService.create(createRecycleCenterDto, req.user.id, cityId, countryId);
   }
 
   @Get('/material/:materialId')

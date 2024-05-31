@@ -34,7 +34,9 @@ export class CountryService {
       relations: ['recycles_country','recycles_country.materials.user_materials', 'cities_country'],
     });
   }
-
+  findOne(id: number) {
+    return this.countryRepository.findOneBy({id});
+  }
   
 
   update(id: number, userId:number, updateCountryDto: UpdateCountryDto) {

@@ -17,11 +17,6 @@ export class Recyclecenter {
     @Column({length:100})
     address:string;
 
-    @Column()
-    countryId:number;
-    @Column()
-    cityId:number;
-
     @ManyToOne(()=>Country,(country)=>country.recycles_country)
     @JoinColumn()
     country_recycles:Country;

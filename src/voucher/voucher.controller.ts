@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request, UnauthorizedException } from '@nestjs/common';
 import { VoucherService } from './voucher.service';
 import { CreateVoucherDto } from './dto/create-voucher.dto';
 import { UpdateVoucherDto } from './dto/update-voucher.dto';
@@ -11,7 +11,11 @@ export class VoucherController {
   @Post()
   @UseGuards(AuthGuard)
   create(@Body() createVoucherDto: CreateVoucherDto, @Request() req:PayloadRequest) {
-    return this.voucherService.create(createVoucherDto, req.user.id);
+    const userId = req.user?.id; // Suponiendo que el ID del usuario está en req.user.id
+    if (!userId) {
+      throw new UnauthorizedException('You must be logged in to create a voucher');
+    }
+    return this.voucherService.create(createVoucherDto, userId);
   }
 
   @Get('/account/:accountId')

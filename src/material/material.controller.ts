@@ -20,10 +20,10 @@ export class MaterialController {
     const recycleId=1;
     return this.materialService.findAllByAccountRecycleId(req.user.id, recycleId);
   }
-  @Get(':id')
+  @Get(':type')
   @UseGuards(AuthGuard)
-  findOne(@Param('id') id: string, @Request() req: PayloadRequest) {
-    return this.materialService.findOne(+id, req.user.id);
+  findOne(@Param('type') type: string, @Request() req: PayloadRequest) {
+    return this.materialService.findOne(type, req.user.id);
   }
 
   @Patch(':id')

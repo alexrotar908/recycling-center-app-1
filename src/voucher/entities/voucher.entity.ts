@@ -6,6 +6,7 @@ export class Voucher {
     @PrimaryGeneratedColumn()
     id:number;
 
+
     @Column()
     code:number;
 
@@ -13,10 +14,7 @@ export class Voucher {
     points:number;
 
     @Column({type:'date'})
-    exp_date:Date;
-
-    @Column()
-    accountId:number;
+    exp_date:Date
 
     @OneToOne(()=>Account,(account)=>account.voucher)
     @JoinColumn()

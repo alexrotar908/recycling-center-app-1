@@ -1,17 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { RecyclecenterController } from './recyclecenter.controller';
+import { RecycleCenterController } from './recyclecenter.controller';
 import { RecyclecenterService } from './recyclecenter.service';
 
 describe('RecyclecenterController', () => {
-  let controller: RecyclecenterController;
+  let controller: RecycleCenterController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [RecyclecenterController],
+      controllers: [RecycleCenterController],
       providers: [RecyclecenterService],
     }).compile();
 
-    controller = module.get<RecyclecenterController>(RecyclecenterController);
+    controller = module.get<RecycleCenterController>(RecycleCenterController);
   });
 
   it('should be defined', () => {

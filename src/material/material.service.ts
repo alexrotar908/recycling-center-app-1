@@ -37,10 +37,20 @@ export class MaterialService {
   findOne(type:string, userId:number) {
     return this.materialRepository.findOne({
       where: {
+        type,
         user_materials:{id:userId},
       },
       relations: ['user_materials'],
     });
+  }
+
+  isConnectedToRecycleId(recycleId:number){
+    return this.materialRepository.find({
+      where:{
+        id:recycleId,
+      },
+    })
+
   }
 
   update( updateMaterialDto: UpdateMaterialDto) {

@@ -5,7 +5,7 @@ export interface PayloadRequest extends Request{
   user: {
     email:string;
     id: number;
-  }
+  };
 }
 
 @Injectable()
@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate {
     }
     try{
       const payload= await this.jwtService.verifyAsync(token);
-      request.user=payload;  
+      request.user=payload.user;
     }catch(error){
       throw new UnauthorizedException('Unauthorized access');
     }
@@ -33,7 +33,8 @@ export class AuthGuard implements CanActivate {
   }
 
   private extractTokenFromHeader(request: Request): string | undefined{
-    const authHeader= request.headers.get('authorization');
+    const authHeader= request.headers['authorization'];
+    console.log(authHeader);
     if(!authHeader){
       return undefined;
     }

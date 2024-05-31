@@ -22,7 +22,7 @@ export class AccountService {
     return this.userRepository.save(user);
   }
 
-  isConnectedToVoucher(voucherId:number, id:number){
+  isConnectedToVoucher(voucherId:number){
     return this.userRepository.findOneBy({
       voucher:{id:voucherId},
     });

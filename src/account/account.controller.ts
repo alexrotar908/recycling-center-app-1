@@ -21,7 +21,8 @@ export class AccountController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.accountService.remove(+id);
+  @UseGuards(AuthGuard)
+  remove(@Request() req:PayloadRequest) {
+    return this.accountService.remove(req.user.id);
   }
 }

@@ -15,6 +15,7 @@ import { Country } from './country/entities/country.entity';
 import { Material } from './material/entities/material.entity';
 import { Recyclecenter } from './recyclecenter/entities/recyclecenter.entity';
 import { Voucher } from './voucher/entities/voucher.entity';
+import { AuthGuard } from './auth/auth.guard';
 
 @Module({
   imports: [AccountModule, MaterialModule, RecyclecenterModule, CountryModule, CityModule, VoucherModule, 
@@ -24,16 +25,16 @@ import { Voucher } from './voucher/entities/voucher.entity';
       port:3306,
       username:'root',
       password:'',
-      database:'RecyclingCenterDB',
+      database:'app1',
       entities:[
         Account,City,Country, Material, Recyclecenter, Voucher
       ], 
-      synchronize:process.env.ENV !== 'production',
+      synchronize: process.env.ENV !== 'production',
     }),
     AuthModule,
 
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AuthGuard],
 })
 export class AppModule {}

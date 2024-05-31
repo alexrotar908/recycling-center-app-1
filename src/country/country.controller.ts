@@ -21,6 +21,12 @@ export class CountryController {
     return this.countryService.findAllByCityRecycleId(recycleId,cityId, req.user.id);
   }
 
+  @Get()
+  @UseGuards(AuthGuard)
+  findOne(@Request() req: PayloadRequest) {
+    return this.countryService.findOne(req.user.id);
+  }
+
 
   @Patch(':id')
   @UseGuards(AuthGuard)

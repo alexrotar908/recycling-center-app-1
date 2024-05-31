@@ -1,3 +1,4 @@
+import { CreateVoucherDto } from "src/voucher/dto/create-voucher.dto";
 
 export class RegisterDto {
     email:string;

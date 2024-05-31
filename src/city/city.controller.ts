@@ -9,8 +9,8 @@ export class CityController {
   constructor(private readonly cityService: CityService) {}
 
   @Post()
-  create(@Body() createCityDto: CreateCityDto) {
-    return this.cityService.create(createCityDto);
+  create(@Body() createCityDto: CreateCityDto, @Request() req: PayloadRequest) {
+    return this.cityService.create(createCityDto, req.user.id);
   }
 
   @Get('/country/:countryId')
@@ -26,7 +26,11 @@ export class CityController {
     return this.cityService.findAllByRecycleId(recyclceId, req.user.id);
   }
 
-
+  @Get()
+  @UseGuards(AuthGuard)
+  findOne(@Request() req: PayloadRequest) {
+    return this.cityService.findOne(req.user.id);
+  }
 
   @Patch(':id')
   @UseGuards(AuthGuard)

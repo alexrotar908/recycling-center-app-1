@@ -9,7 +9,7 @@ import { AccountModule } from 'src/account/account.module';
   controllers: [VoucherController],
   providers: [VoucherService],
   imports:[TypeOrmModule.forFeature([Voucher]), AccountModule],
-  exports:[VoucherService],
+//  exports:[VoucherService],
 
 })
 export class VoucherModule {}

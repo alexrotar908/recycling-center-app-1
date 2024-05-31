@@ -8,7 +8,7 @@ import { AccountModule } from 'src/account/account.module';
 @Module({
   controllers: [CountryController],
   providers: [CountryService],
-  imports:[TypeOrmModule.forFeature([Country]), AccountModule],
-  exports:[CountryService],
+  imports:[TypeOrmModule.forFeature([Country])],
+  //exports:[CountryService],
 })
 export class CountryModule {}

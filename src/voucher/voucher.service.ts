@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Voucher } from './entities/voucher.entity';
 import { Repository } from 'typeorm';
 import { AccountService } from 'src/account/account.service';
+import { Account } from 'src/account/entities/account.entity';
 
 @Injectable()
 export class VoucherService {
@@ -15,14 +16,20 @@ export class VoucherService {
     private userService: AccountService,
   ){}
   async create(createVoucherDto: CreateVoucherDto, userId) {
+
+    const account = await this.userService.findOne(userId);
+
+    if (!account) {
+      throw new UnauthorizedException('User account not found');
+    }
     const voucher= new Voucher();
     voucher.code=createVoucherDto.code;
     voucher.exp_date=createVoucherDto.exp_date;
     voucher.points=createVoucherDto.points;
-    voucher.accountId= createVoucherDto.accountId;
+    voucher.user=account;
 
     const isConnected= await this.userService.isConnectedToVoucher(
-      userId, voucher.accountId
+      userId
     );
 
     if(!isConnected){
